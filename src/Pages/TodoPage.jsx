@@ -1,3 +1,5 @@
+import TodoList from '../Modules/TodoList'
+
 const TodoPage = () => {
     return (
         <>
@@ -5,3 +7,5 @@ const TodoPage = () => {
         </>
     );
 }
+
+export default TodoPage
