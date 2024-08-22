@@ -1,0 +1,7 @@
+const TodoPage = () => {
+    return (
+        <>
+        <TodoList/>
+        </>
+    );
+}
