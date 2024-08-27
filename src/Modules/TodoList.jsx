@@ -17,9 +17,37 @@ const TodoList = () => {
         }
         ]);
 
+        function addTask(text) {
+            const newTask = {
+                id : tasks[tasks.length-1].id+1,
+                text,
+                completed : false,
+            };
+            setTasks([...tasks, newTask]);
+        }
+
+        function deleteTask(id) {
+            console.log('deleted');
+            setTasks(tasks.filter(task => task.id !== id));
+            
+            }
+
+        function switchCompleted(id) {
+            setTasks(tasks.map(task => {
+                if (task.id === id){
+                    return {...task, completed : !task.completed};
+                }
+                else {
+                    return task;
+                }
+            }))
+            console.log('switched');
+        }
     return (
         <>
-        <AddItem/>
+        <AddItem
+        addTask = {addTask}
+        />
         <FilterByProgress/>
         <ul>
             {tasks.map(task => 
@@ -27,7 +55,9 @@ const TodoList = () => {
                     <Item 
                         key = {task.id} 
                         task = {task}
-                    />
+                        deleteTask = {() => deleteTask(task.id)}
+                        switchCompleted = {() => switchCompleted(task.id)}
+                    />  
                 )
             )
             }
