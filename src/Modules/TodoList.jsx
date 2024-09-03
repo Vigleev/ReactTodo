@@ -2,6 +2,8 @@ import Item from '../Components/Item'
 import AddItem from '../Components/AddItem'
 import FilterByProgress from '../Components/FilterByProgress'
 import { useState } from 'react'
+import { useEffect } from 'react'
+import FilterTypes from '../Types/FilterType'
 
 const TodoList = () => {
     const [tasks, setTasks] = useState([
@@ -17,15 +19,38 @@ const TodoList = () => {
         }
         ]);
 
+
+        const [filterType, setFilterType] = useState(FilterTypes.ALL)
+        const filterTasks = (tasks, filterType) => {
+            switch (filterType) {
+                case "ALL":
+                    return tasks;
+                case "DONE":
+                    return tasks.filter(task => task.completed);
+                case "TODO":
+                    return tasks.filter(task => !task.completed);
+            }
+        };
+
+        const filteredTasks = filterTasks(tasks,filterType);
+
+        function setFilter(Filter){
+            console.log("setting filter");
+            setFilterType(Filter);
+        }
+
         function addTask(text) {
             const newTask = {
-                id : tasks[tasks.length-1].id+1,
+                
+                id : tasks.length==0? 1: tasks[tasks.length-1].id+1,
                 text,
                 completed : false,
             };
             setTasks([...tasks, newTask]);
         }
 
+        
+        
         function deleteTask(id) {
             console.log('deleted');
             setTasks(tasks.filter(task => task.id !== id));
@@ -48,9 +73,11 @@ const TodoList = () => {
         <AddItem
         addTask = {addTask}
         />
-        <FilterByProgress/>
+        <FilterByProgress
+            setFilterType = {(Filter) => setFilter(Filter)}
+        />
         <ul>
-            {tasks.map(task => 
+            {filteredTasks.map(task => 
                 (
                     <Item 
                         key = {task.id} 
