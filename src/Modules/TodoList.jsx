@@ -55,7 +55,20 @@ const TodoList = () => {
             console.log('deleted');
             setTasks(tasks.filter(task => task.id !== id));
             
-            }
+        }
+
+        function editTask(id,text) {
+            console.log('edited');
+            setTasks(tasks.map(task => {
+                if (task.id === id){
+                    return {...task, text : text};
+                }
+                else {
+                    return task;
+                }
+            }))
+                
+        }
 
         function switchCompleted(id) {
             setTasks(tasks.map(task => {
@@ -82,6 +95,7 @@ const TodoList = () => {
                     <Item 
                         key = {task.id} 
                         task = {task}
+                        editTask = {(text) => editTask(task.id,text)}
                         deleteTask = {() => deleteTask(task.id)}
                         switchCompleted = {() => switchCompleted(task.id)}
                     />  
