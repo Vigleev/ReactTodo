@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AddButton from '../UI/AddButton'
+import ActionButton from '../UI/ActionButton'
 const AddItem = (props) => {
     const [text,setText] =useState('');
     function HandleClick(){
@@ -12,8 +12,8 @@ const AddItem = (props) => {
             <input value={text}
             onChange={e => setText(e.target.value)} 
             ></input>
-            <AddButton
-            HandleClick = {()=>HandleClick}
+            <ActionButton
+            action = {()=>HandleClick()}
             />
         </div>
         </>

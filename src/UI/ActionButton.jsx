@@ -1,7 +1,6 @@
-const DeleteButton = (props) => {
+const ActionButton = (props) => {
     function handleClick(){
-        props.deleteTask();
-        console.log('click');
+        props.action();
     }
     return (
         <>
@@ -10,4 +9,4 @@ const DeleteButton = (props) => {
     );
 }
 
-export default DeleteButton
+export default ActionButton
