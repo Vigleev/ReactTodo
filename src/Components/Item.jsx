@@ -1,5 +1,6 @@
 import ActionButton from '../UI/ActionButton'
 import {useState} from 'react'
+import classes from './Components.module.css'
 const Item = (props) => {
     const [editing,setEditing] = useState(false);
     const [text,setText] = useState(props.task.text);
@@ -15,19 +16,24 @@ const Item = (props) => {
     }
 
     return (
-        <>
-        <li>
+        
+        <li className={`${classes.item}`}>
         {editing ? 
         <>
             <input 
             value={text}
             onChange={e => setText(e.target.value)}
             ></input>
+            <div>
             <ActionButton
-            action={()=>saveEdit(text)}/>
+            action={()=>saveEdit(text)}
+            text ={'save'}
+            />
             <ActionButton
             action={()=>cancelEdit()}
+            text ={'cancel'}
             />
+            </div>
         </>: 
         <>
             <input  type="checkbox" 
@@ -37,20 +43,23 @@ const Item = (props) => {
 
             <p>{props.task.text}</p>
 
-
+            <div className={`${classes.buttons}`}>
             <ActionButton
                     action = {()=>{setEditing("true")}}
+                    text = {'edit'}
             />
 
             <ActionButton
                     action = {props.deleteTask}
+                    text = {'delete'}
                     
             />
+            </div>
         </>
         
     }
         </li>
-        </>
+        
     );
 }
 

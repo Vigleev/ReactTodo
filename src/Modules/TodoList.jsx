@@ -4,6 +4,7 @@ import FilterByProgress from '../Components/FilterByProgress'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import FilterTypes from '../Types/FilterType'
+import classes from '../Components/Components.module.css'
 
 const TodoList = () => {
     const [tasks, setTasks] = useState([
@@ -93,6 +94,7 @@ const TodoList = () => {
             {filteredTasks.map(task => 
                 (
                     <Item 
+                        className = {`${(classes.item)}`}
                         key = {task.id} 
                         task = {task}
                         editTask = {(text) => editTask(task.id,text)}

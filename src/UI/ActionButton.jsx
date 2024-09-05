@@ -4,7 +4,7 @@ const ActionButton = (props) => {
     }
     return (
         <>
-        <button onClick={handleClick}></button>
+        <button onClick={handleClick}>{props.text}</button>
         </>
     );
 }
