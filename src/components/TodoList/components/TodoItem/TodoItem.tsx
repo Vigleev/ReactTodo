@@ -1,18 +1,21 @@
+import React from 'react'
 import {useState} from 'react'
 import ActionButton from '../../../../ui/ActionButton.jsx'
 import { useUpdateTodo, useDeleteTodo } from "../../../../hooks/hooks.js";
 import styles from './TodoItem.module.css'
+import {FullTodoItem, NewTodoItem} from '../../../../types/TodoItem'
 
 
-const Item = (props) => {
+const Item = (props: {todo:FullTodoItem}) => {
+
     const [editing,setEditing] = useState(false);
     const [text,setText] = useState(props.todo.title);
     
     const { mutate:updateTodo } = useUpdateTodo(props.todo.id);
     const { mutate:deleteTodo } = useDeleteTodo();
 
-    function saveEdit(text) {
-        const newTodo = {
+    function saveEdit(text:string) {
+        const newTodo:NewTodoItem = {
             isDone: props.todo.isDone,
             title: text
         }
@@ -64,7 +67,7 @@ const Item = (props) => {
             <p>{text}</p>
             <div className = {`${styles.ButtonContainer}`}>
             <ActionButton
-                    action = {()=>{setEditing("true")}}
+                    action = {()=>{setEditing(true)}}
                     text = {'edit'}
             />
             <ActionButton

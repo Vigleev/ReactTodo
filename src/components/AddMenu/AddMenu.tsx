@@ -1,14 +1,17 @@
+import React from 'react'
 import {useState} from 'react'
-import ActionButton from '../../ui/ActionButton'
+import ActionButton from '../../ui/ActionButton.jsx'
 import styles from './AddMenu.module.css'
 import { useAddTodo } from "../../hooks/hooks.js";
+import {FullTodoItem, NewTodoItem} from '../../types/TodoItem'
+
 const AddMenu = () => {
     const { mutate:addTodo } = useAddTodo();
     const [text,setText] = useState('');
     
-    function HandleClick(){
-        const newTodo = {
-            isdone:false,
+    function handleAddItem(){
+        const newTodo:NewTodoItem = {
+            isDone:false,
             title: text
         }
         console.log(newTodo);
@@ -23,7 +26,7 @@ const AddMenu = () => {
             onChange={e => setText(e.target.value)} 
             ></input>
             <ActionButton
-            action = {()=>HandleClick()}
+            action = {()=>handleAddItem()}
             text = {'Add'}
             />
         </div>

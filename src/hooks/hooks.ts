@@ -1,8 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getTodos, addTodo, updateTodo, deleteTodo } from "../api/api.js";
+import FilterTypes from '../types/FilterTypes.ts'
+import {FullTodoItem, NewTodoItem} from '../types/TodoItem'
 
-export const useTodos = () => {
-    return useQuery('todos', getTodos)
+export const useTodos = (status:FilterTypes) => {
+    return useQuery(['todos', status],() => getTodos(status))
 }
 
 export const useAddTodo = () => {
@@ -19,9 +21,9 @@ export const useDeleteTodo = () => {
     })
 }
 
-export const useUpdateTodo = (id) => {
+export const useUpdateTodo = (id:number) => {
     const queryClient = useQueryClient();
-    return useMutation(newTodo => updateTodo(id,newTodo), {
+    return useMutation((newTodo:NewTodoItem) => updateTodo(id,newTodo), {
         onSuccess: () => queryClient.invalidateQueries('todos'),
         onError: (err => console.error(err))
     });
